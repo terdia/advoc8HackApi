@@ -8,6 +8,7 @@ use Illuminate\Database\Eloquent\SoftDeletes;
 class Application extends Model
 {
     use SoftDeletes;
+    public $table = 'user_applications';
     /**
      * The attributes that are mass assignable.
      *

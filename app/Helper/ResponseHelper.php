@@ -14,12 +14,13 @@ class ResponseHelper
     protected $payload = array(
         'status' => 'success',
     );
-    protected $code, $status, $data;
+    protected $code, $status, $data, $message;
 
-    public static function prepareResponsePayload($code = 200, array $data = []){
+    public static function prepareResponsePayload($code = 200, $message, array $data = []){
         $payloadObj = new static;
         $payloadObj->code = $code;
         $payloadObj->data = $data;
+        $payloadObj->message = $message;
 
         switch ($payloadObj->code){
             case 401:
@@ -33,7 +34,13 @@ class ResponseHelper
                 break;
         }
 
-        $payloadObj->payload['data'] = $payloadObj->data;
+        if($payloadObj->message != ''){
+            $payloadObj->payload['message'] = $payloadObj->message;
+        }
+
+        if(count($payloadObj->data) > 0){
+            $payloadObj->payload['data'] = $payloadObj->data;
+        }
 
         return $payloadObj->payload;
 

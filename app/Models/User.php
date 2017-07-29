@@ -21,7 +21,7 @@ class User extends Model
      * @var array
      */
     protected $hidden = [
-        'deleted_at',
+        'access_token','password', 'created_at', 'updated_at', 'deleted_at',
     ];
 
     public $timestamps = true;

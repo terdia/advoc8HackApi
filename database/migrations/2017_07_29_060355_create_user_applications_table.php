@@ -22,14 +22,15 @@ class CreateUserApplicationsTable extends Migration
             $table->string('country')->nullable();
             $table->string('state')->nullable();
             $table->string('address')->nullable();
-            $table->string('type')->nullable();
-            $table->enum('gender', ['Male', 'Female'])->nullable();
+            $table->enum('type', ['Maid', 'Employer'])->default(NULL);
+            $table->enum('gender', ['Male', 'Female'])->default(NULL);
             $table->enum('marital_status', ['Married', 'Single', 'Divorce']);
             $table->enum('status',
-                ['Pending Verification', 'Negotiations in Progress',
-                    'Visa Processing', 'Awaiting Payment', 'Release Stage',
-                    'Pending Signature', 'Completed', 'Draft Mode','Application Rejected'])
-                ->default('Pending Verification');
+                [
+                    'Not Completed','Pending Verification',
+                    'Completed','Application Rejected'
+                ])
+                ->default('Not Completed');
             $table->string('purpose')->nullable();
             $table->string('contact_number')->nullable();
             $table->string('occupation')->nullable();

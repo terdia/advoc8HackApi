@@ -10,7 +10,7 @@ class IndexController extends Controller
 {
    public function index() {
 
-       $payload = ResponseHelper::prepareResponsePayload(200, [
+       $payload = ResponseHelper::prepareResponsePayload(200, '', [
            'Event' => 'Advoc 8',
            'Team' => 'Team ⁠⁠⁠Apocalypse'
        ]);

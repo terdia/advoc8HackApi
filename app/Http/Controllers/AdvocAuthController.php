@@ -21,10 +21,8 @@ class AdvocAuthController extends Controller
 
        if ($validator->fails()) {
            $errors = json_decode($validator->errors(), true);
-           $payload = ResponseHelper::prepareResponsePayload(201, $errors);
-           return response()->json([
-               $payload
-           ]);
+           $payload = ResponseHelper::prepareResponsePayload(201, '', $errors);
+           return response()->json($payload);
        }
 
        $username = $request->input('name');
@@ -41,11 +39,9 @@ class AdvocAuthController extends Controller
        ]);
 
        $payload = ResponseHelper::prepareResponsePayload(200,
-           ['Registration Completed Successfully']);
+           'Registration Completed Successfully');
 
-       return response()->json([
-           $payload
-       ]);
+       return response()->json($payload);
    }
 
    public function login(Request $request) {
@@ -55,24 +51,20 @@ class AdvocAuthController extends Controller
 
        $user = User::where('email', $login_name)
                ->orWhere('name', $login_name)
-           ->first();
+               ->first();
 
        if($user){
            if(password_verify($password, $user->password)){
-               $payload = ResponseHelper::prepareResponsePayload(200,
+               $payload = ResponseHelper::prepareResponsePayload(200, '',
                    ['access_token' => $user->access_token]);
 
-               return response()->json([
-                   $payload
-               ]);
+               return response()->json($payload);
            }
        }
 
        $payload = ResponseHelper::prepareResponsePayload(201,
-           ['Invalid username or password']);
+           'Invalid username or password');
 
-       return response()->json([
-           $payload
-       ]);
+       return response()->json($payload);
    }
 }
