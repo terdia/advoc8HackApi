@@ -18,6 +18,7 @@ Route::post('/join', 'AdvocAuthController@join');
 Route::post('/auth/login', 'AdvocAuthController@login');
 
 Route::get('/load/{members}', 'MaidController@load');
+Route::get('/user/{id}', 'MaidController@show');
 
 Route::middleware('authorize')->group(function (){
     Route::post('/user/application', 'ApplicationController@apply');

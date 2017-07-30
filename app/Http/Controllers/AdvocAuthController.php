@@ -56,7 +56,7 @@ class AdvocAuthController extends Controller
        if($user){
            if(password_verify($password, $user->password)){
                $payload = ResponseHelper::prepareResponsePayload(200, '',
-                   ['access_token' => $user->access_token]);
+                   ['access_token' => $user->access_token, 'id' => $user->id]);
 
                return response()->json($payload);
            }

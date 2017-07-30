@@ -31,4 +31,26 @@ class MaidController extends Controller
 
         return response()->json($payload);
     }
+
+    public function show($id){
+
+        try{
+            $result = Application::where('user_id', '=', $id)
+                ->with('user')->first();
+
+            if(count($result)){
+                $payload = ResponseHelper::prepareResponsePayload(200,
+                    '', $result->toArray());
+            }else{
+                $payload = ResponseHelper::prepareResponsePayload(200,
+                    'No record found');
+            }
+
+        }catch (\Exception $ex){
+            $payload = ResponseHelper::prepareResponsePayload(200,
+                $ex->getMessage());
+        }
+
+        return response()->json($payload);
+    }
 }

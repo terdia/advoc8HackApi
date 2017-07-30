@@ -12,7 +12,8 @@ class IndexController extends Controller
 
        $payload = ResponseHelper::prepareResponsePayload(200, '', [
            'Event' => 'Advoc 8',
-           'Team' => 'Team ⁠⁠⁠Apocalypse'
+           'Team' => 'Team ⁠⁠⁠Apocalypse',
+           'app_name' => 'Illuminate Maid'
        ]);
 
        return response()->json($payload);

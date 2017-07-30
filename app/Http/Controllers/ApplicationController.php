@@ -20,9 +20,12 @@ class ApplicationController extends Controller
                 $request->request->add(['avatar' => $path]);
             }
 
-            $application = Application::create($request->all());
+            Application::create($request->all());
 
-            $payload = ResponseHelper::prepareResponsePayload(200, '', $application->toArray());
+            $result = Application::where('user_id', '=', $request->input('user_id'))
+                ->with('user')->first();
+
+            $payload = ResponseHelper::prepareResponsePayload(200, '', $result->toArray());
 
         }catch (\Exception $ex){
             $payload = ResponseHelper::prepareResponsePayload(500, $ex->getMessage());
@@ -42,11 +45,17 @@ class ApplicationController extends Controller
                 $request->request->add(['avatar' => $path]);
             }
 
-            $application = Application::where('user_id', $request->input('user_id'))
+            Application::where('id', $request->input('id'))
                 ->update($request->all());
 
-            $payload = ResponseHelper::prepareResponsePayload(200, '', $application->toArray());
+            $result = Application::where('user_id', '=', $request->input('user_id'))
+                ->with('user')->first();
 
+            if($result){
+                $payload = ResponseHelper::prepareResponsePayload(200, '', $result);
+            }else{
+                $payload = ResponseHelper::prepareResponsePayload(200, '', []);
+            }
         }catch (\Exception $ex){
             $payload = ResponseHelper::prepareResponsePayload(500, $ex->getMessage());
         }
